@@ -215,8 +215,11 @@ if has('file_in_path') " {{{
       for l:spec in values(s:specs)
         if match(l:line, l:spec.pattern, l:offset) is l:offset
           let l:match = matchstr(l:line, l:spec.pattern, l:offset)
+          " open in previous window
+          execute 'wincmd p'
+          execute 'edit '.l:cfile
           " leverage Vim's own |gf| for opening the file
-          execute 'normal!' a:count.'gf'
+          "execute 'normal!' a:count.'gf'
           return s:setpos(l:spec.parse(l:cfile.l:match)[1])
         endif
       endfor
